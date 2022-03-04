@@ -2,18 +2,24 @@
 #include <fstream>
 using namespace std;   
 
-bool tests(int *sp,int n,int f);
+bool cangroup(int *sp,int n,int f);
 int main() 
 {
 //read the integers to array s and calculate the sum
+    int n=0,tmp,i=0,sum=0;
     ifstream fin("input.in"); 
-    int n;
-    fin>>n;
+    while (fin>>tmp) 
+        n++;
+    fin.clear();
+    fin.seekg(0);
     int s[n];
-    int i=0,sum=0;
-    while (i<n && fin>>s[i]) 
-        sum+=s[i++];
-    n=i; //actural # of int read
+    while (fin>>tmp)
+        {
+            s[i++]=tmp;
+            sum+=tmp;
+        }
+    fin.close();
+
     cout <<"Input: \n";
     for (i=0;i<n;i++)
         cout << s[i]<<" ";
@@ -23,7 +29,7 @@ int main()
     bool found=false;
     while ((f1<=sum/2) && !found)
     {
-        if ((sum%f1)==0) found=tests(s,n,f1);
+        if ((sum%f1)==0) found=cangroup(s,n,f1);
         if (!found) f1++;
     }
 //output the results
@@ -47,16 +53,16 @@ int main()
     }
 }
 //using the factor f to test the array sp which contains nn integers
-bool tests(int *sp,int nn,int f)
+bool cangroup(int *sp,int nn,int f)
 {
     if (nn==0) return true;
-    if (sp[0]==0) return tests(sp+1,nn-1,f);
+    if (sp[0]==0) return cangroup(sp+1,nn-1,f);
     int i=0,t=0;
     while (i<nn)
     {
         t+=sp[i++];
         if (t>f) return false;
-        if (t==f) return tests(sp+i,nn-i,f);
+        if (t==f) return cangroup(sp+i,nn-i,f);
     }
     return false;
 }

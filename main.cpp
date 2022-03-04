@@ -6,14 +6,20 @@ bool cangroup(int *sp,int n,int f);
 int main() 
 {
 //read the integers to array s and calculate the sum
+    int n=0,tmp,i=0,sum=0;
     ifstream fin("input.in"); 
-    int n;
-    fin>>n;
+    while (fin>>tmp) 
+        n++;
+    fin.clear();
+    fin.seekg(0);
     int s[n];
-    int i=0,sum=0;
-    while (i<n && fin>>s[i]) 
-        sum+=s[i++];
-    n=i; //actural # of int read
+    while (fin>>tmp)
+        {
+            s[i++]=tmp;
+            sum+=tmp;
+        }
+    fin.close();
+
     cout <<"Input: \n";
     for (i=0;i<n;i++)
         cout << s[i]<<" ";
