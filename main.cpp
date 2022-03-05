@@ -13,11 +13,11 @@ int main()
     fin.clear();
     fin.seekg(0);
     int s[n];
-    while (fin>>tmp)
-        {
-            s[i++]=tmp;
-            sum+=tmp;
-        }
+    while (i<n)
+    {
+        fin>>s[i];
+        sum+=s[i++];
+    }
     fin.close();
 
     cout <<"Input: \n";
@@ -34,7 +34,7 @@ int main()
     }
 //output the results
     if (!found) 
-        cout <<"Just 1 block of all the numbers.\n";
+        cout <<"Just 1 block of "<<sum<<".\n";
     else
     {
         cout <<sum/f1<<" blocks of "<<f1<<":\n";
